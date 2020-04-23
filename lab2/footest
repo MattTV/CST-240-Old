@@ -1,0 +1,51 @@
+#!/bin/bash
+
+show_help() {
+    echo Welcome to footest!
+    echo This script tests the C program foo, ensuring that it exits successfully by returning 0.
+    echo This script can test the program on a range of values, from a given start, to a specified end, and give feedback on the results.
+    echo -e footest can take four possible arguments: -h, -e, -s, and -v.
+    echo -h Brings up the help menu, where you are now.
+    echo -e Specifies the end value to test foo with. If not specified, it will default to 0.
+    echo -s Specifies the start value to test foo with. If not specified, it will default to 1.
+    echo -v Will show extra details when functions fail.
+    echo NOTE: If neither -e nor -s are specified, you will see this help menu again!
+    
+    exit
+}
+
+END=-1    # Set default values for these variables, so it is known whether they change or not.
+START=-1
+VERBOSE=0
+
+while getopts ':he:s:v' OPT
+do
+    case $OPT in
+        h) show_help     ;; 
+        e) END=$OPTARG   ;;
+        s) START=$OPTARG ;;
+        v) VERBOSE=1     ;; 
+        ?) echo $OPTARG is not a valid argument, please try again ;;
+    esac
+done
+
+if [ $END -eq -1 ] && [ $START -eq -1 ] ; then
+    show_help
+elif [ $END -eq -1 ] ; then
+    END=0
+elif [ $START -eq -1 ] ; then
+    START=1
+fi
+
+
+
+
+
+
+
+
+echo "End:   $END"
+echo "START: $START"
+echo "v:     $VERBOSE"
+
+
