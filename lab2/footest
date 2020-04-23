@@ -1,4 +1,6 @@
 #!/bin/bash
+# Matt Volpe.
+# April 22, 2020.
 
 show_help() {
     echo Welcome to footest!
@@ -17,6 +19,7 @@ show_help() {
 END=-1    # Set default values for these variables, so it is known whether they change or not.
 START=-1
 VERBOSE=0
+RESULT=-1
 
 while getopts ':he:s:v' OPT
 do
@@ -37,15 +40,20 @@ elif [ $START -eq -1 ] ; then
     START=1
 fi
 
+if [ $START -gt $END ] ; then   # Pretty sure these about do the same thing.
+    END=$START
+elif [ $END -lt $START ] ; then
+    START=$END
+fi
 
-
-
-
-
-
-
-echo "End:   $END"
-echo "START: $START"
-echo "v:     $VERBOSE"
-
-
+for((i=$START;i<=$END;i++))
+do
+    ./foo $i
+    RESULT=$?
+    if [ $RESULT -eq 0 ] ; then echo "$i was successful!"
+    elif [ $RESULT -eq 1 ] && [ $VERBOSE -eq 1 ] ; then echo "$i didn't work. It returned $RESULT. This means a command line argument was not supplied."
+    elif [ $RESULT -eq 2 ] && [ $VERBOSE -eq 1 ] ; then echo "$i didn't work. It returned $RESULT. This means an invalid command line argument was supplied."
+    elif [ $RESULT -eq 3 ] && [ $VERBOSE -eq 1 ] ; then echo "$i didn't work. It returned $RESULT. This means the program failed for another reason."
+    elif [ $VERBOSE -eq 0 ] ; then echo "$i didn't work."
+    fi
+done

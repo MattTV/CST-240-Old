@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# getopts arguments
+#  ':srd:f:' breaks down as
+#    : Leading : indicates manual error handling
+#    s Indicates the -s option is valid
+#    r Indicates the -r option is valid
+#    d: Indicates -d is valid and it takes one argument
+#    f: Indicates -f is valid and it takes one argument
+while getopts ':srd:f:' OPT
+do
+  case $OPT in
+    s) ACTION=SAVE ;;
+    r) ACTION=RESTORE ;;
+    d) DB_DUMP=$OPTARG ;;
+    f) TARBALL=$OPTARG ;;
+    ?) echo Unknown: $OPTARG is what was seen ;; # Manual error handling
+  esac
+done
+
+# Display the variables
+echo "Action: $ACTION"
+echo "DB_DUMP: $DB_DUMP"
+echo "TARBALL: $TARBALL"
