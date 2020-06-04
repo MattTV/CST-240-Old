@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
     // For each argument exluding argv[0] (The program's name)...
     for (short ii = 1; ii < argc; ++ii)
