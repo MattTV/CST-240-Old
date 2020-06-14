@@ -4,13 +4,16 @@
 int main() 
 {
     // A 1-character buffer to read into and out of.
-    char * curr = malloc(sizeof(char));
+    char buffer[10];
+
+    short num = 10;
 
     // Until the end of the file is reached, read one character from STDIN at a time and...
-    while (read(0, curr, 1) != 0)
+    while (num == 10)
     {
         // ...and write that character to STDOUT.
-        write(1, curr, 1);
+        num = read(0, buffer, 10);
+        write(1, buffer, num);
     }
 
     return 0;
